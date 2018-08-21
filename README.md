@@ -67,7 +67,8 @@ There are several advantages of this approach:
   
  2. Displaying hand gestures in the chest area improves the quality of the hand detector as a user has a high degree of control of the image background (one's t-shirt) and because the number and diversity of possible backgrounds is greatly reduced (to the number of t-shorts and sweaters in user's wardrobe.) Because of that one does not need a large data set to build a model which makes a fairly accurate predictions so it takes less time to collect the training data and to train your model.
 
-A couple of practical suggestions if face detection takes longer than 10-15 seconds:
+#### If face detection takes longer than 10-15 seconds:
+
  - It is possible that the face detector cannot detect your face if, for example, your wear a particular glasses. Before starting this application, make sure Google's face/joy detector can detect your face (e.g. reacts to your smile.)
  - Make sure you stand still during this step – to better estimate the parameters of the face bounding box the face detector compares face box parameters on several frames and will only proceed to the next step when they are stable. 
  - Move further away from the camera – it is possible that you are too close and while your face is detected, your chest area does not fit into the image. The optimal distance from the Google Vision kit is about 10 feet (3 meters.)  
