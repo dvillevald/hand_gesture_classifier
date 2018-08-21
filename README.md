@@ -153,7 +153,7 @@ Once deactivated, the LED on the top of Google Vision AIY kit will turn off and 
 
 You can terminate the application and safely shut down your Google Vision AIY kit at any time by pushing the button on the top of the Google Vision AIY kit.
 
-## Hand Command Display Box (OPTIONAL)
+## (OPTIONAL) Hand Command Display Box
 
 You can buid a simple device which, once connected to Google Vision AIY kit via GPIO pins, will display your hand commands. I built this display box 
 
