@@ -162,7 +162,7 @@ You can buid a simple device which, once connected to Google Vision AIY kit via 
 from the following components:
 
  - [Arduino UNO](https://www.sparkfun.com/products/11021)
- - [2.2-5V Level Logic Converter](https://www.sparkfun.com/products/12009)
+ - [Logic Level Converter](https://www.sparkfun.com/products/12009)
  - [Jumper Wire - 0.1", 6-pin, 12"](https://www.sparkfun.com/products/10376)
  - 5 x resistors 330 Ohm
  - 5 x red LEDs
@@ -170,6 +170,8 @@ from the following components:
  - Wires
  - Power supply for Arduino
  - Cardboard box (from belt or shoes)
+ 
+Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3V-based signals. Because of that you would need 3.3V-to-5V Logic Level Converter to step up signals from Raspberry Pi of Google Vision AIY kit. 
  
 ### Schematic diagram  
 
