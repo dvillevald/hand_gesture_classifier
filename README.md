@@ -191,7 +191,7 @@ from the following components:
  
 <img width="800" height="600" src="images/schematic1.png">
 
-**Important:** Make sure that the red wire (+5V) is connected to the rightmost GPIO pin and the balck wire (GND) - to the leftmost GPIO pin of Google Vision AIY kit:
+**Important:** Make sure that the red wire (+5V) is connected to the rightmost GPIO pin and the black wire (GND) - to the leftmost GPIO pin of Google Vision AIY kit:
 
 <img width="800" height="600" src="images/connect_display_to_kit.JPG">
  
