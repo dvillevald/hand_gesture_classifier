@@ -152,3 +152,7 @@ Once deactivated, the LED on the top of Google Vision AIY kit will turn off and 
 ### Step 5. Shutting down Google Vision AIY kit
 
 You can terminate the application and safely shut down your Google Vision AIY kit at any time by pushing the button on the top of the Google Vision AIY kit.
+
+## Hand Command Display Box (OPTIONAL)
+
+
