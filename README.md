@@ -198,3 +198,5 @@ Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3
 <img width="600" height="450" src="images/connect_display_to_kit.JPG">
  
 Once your Display Box is powered and connected to Google Vision AIY kit's GPIO pins, you can start hand gesture classifier following the steps described above. 
+
+## Thank you!
