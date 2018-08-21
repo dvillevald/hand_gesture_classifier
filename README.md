@@ -185,5 +185,6 @@ from the following components:
 ### Connecting Display Box to Google Vision AYI kit
  
 <img width="800" height="600" src="images/schematic1.png">
+<img width="800" height="600" src="images/connect_display_to_kit.JPG">
  
 
