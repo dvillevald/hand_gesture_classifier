@@ -184,7 +184,15 @@ from the following components:
 
 ### Connecting Display Box to Google Vision AYI kit
  
+1. Assembble the Display Box
+2. Connect the Display Box to computer via USB and load to Arduino UNO sketch **/arduino/hand_gesture_display_box.ino**
+3. Connect Arduino power supply to power Display Box
+4. Connect Display Box with GPIO pins of Google Vision AIY kit following this schematic:  
+ 
 <img width="800" height="600" src="images/schematic1.png">
+
+**Important:** Make sure that the red wire (+5V) is connected to the rightmost GPIO pin and the balck wire - to the leftmost GPIO pin of Google Vision AIY kit:
+
 <img width="800" height="600" src="images/connect_display_to_kit.JPG">
  
 
