@@ -193,8 +193,10 @@ Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3
  
 <img width="800" height="600" src="images/schematic1.png">
 
+5. Launch hand gesture recognizer as described above. 
+
 **Important:** Make sure that the red wire (+5V) is connected to the rightmost GPIO pin and the black wire (GND) - to the leftmost GPIO pin of Google Vision AIY kit:
 
-<img width="800" height="600" src="images/connect_display_to_kit.JPG">
+<img width="600" height="450" src="images/connect_display_to_kit.JPG">
  
 
