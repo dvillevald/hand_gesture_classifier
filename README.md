@@ -186,17 +186,15 @@ Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3
 
 ### Connecting Display Box to Google Vision AYI kit
  
-1. Assemble the Display Box following images and schematic diagram above
-2. Connect Display Box to the computer via USB cord and load sketch **/arduino/hand_gesture_display_box.ino** to Arduino UNO of Display Box
-3. Power Display Box with Arduino power supply
-4. Connect Display Box with GPIO pins of Google Vision AIY kit following this schematic:  
+- Assemble the Display Box following images and schematic diagram above
+- Connect Display Box to the computer via USB cord and load sketch **/arduino/hand_gesture_display_box.ino** to Arduino UNO of Display Box
+- Power Display Box with Arduino power supply
+- Connect Display Box with GPIO pins of Google Vision AIY kit following this schematic:  
  
 <img width="600" height="450" src="images/schematic1.png">
-
-5. Launch hand gesture recognizer as described above. 
 
 **Important:** Make sure that the red wire (+5V) is connected to the rightmost GPIO pin and the black wire (GND) - to the leftmost GPIO pin of Google Vision AIY kit:
 
 <img width="600" height="450" src="images/connect_display_to_kit.JPG">
  
-
+Once your Display Box is powered and connected to Google Vision AIY kit's GPIO pins, you can start hand gesture classifier following the steps described above. 
