@@ -7,21 +7,22 @@ This project demonstrates how, by creating a training set of only 1,500 images f
 ## Installation
 
 1. Buy Google Vision AIY kit and assemble it following [these instructions](https://aiyprojects.withgoogle.com/vision)
-2. Power the assembled Google Vision AIY kit
-3. Stop and disable joy_detector_demo application which is set to start automatically after the booting
+2. Power the assembled Google Vision AIY kit.
+3. Start Dev terminal.
+4. Stop and disable joy_detector_demo application which is set to start automatically after the booting
 
  ```
  sudo systemctl stop joy_detection_demo.service
  sudo systemctl disable joy_detection_demo.service
  ```
-4. Update OS
+5. Update OS
 
  ```
  sudo apt-get update
  sudo apt-get upgrade
  ```
 
-5. Clone the github repository with hand gesture classifier and navigate to the project folder
+6. Clone the github repository with hand gesture classifier and navigate to the project folder
 
  ```
  cd src/examples/vision 
@@ -29,7 +30,7 @@ This project demonstrates how, by creating a training set of only 1,500 images f
  cd hand_gesture_classifier
  ```
 
-6. Start hand gesture classifier
+7. Start hand gesture classifier
 
  ```
  ./hand_gesture_classifier.py  \
@@ -79,7 +80,7 @@ Once you face is reliably detected the LED on the top of Google Vision box turns
 
 LED on the Kit Top = ![#800080](https://placehold.it/15/800080/000000?text=+)
 
-To make sure the application does not react to the noise, any of two hand commands (Palms_in and Palms_out) are used to either activate and deactivate the application. To activate hand gesture recognizer, display one of these two commands in your chest area for 2-5 seconds.
+To make sure the application does not react to the noise, the hand command recognizer should be activated. To activate hand gesture recognizer, display one of these two hand commands in your chest area for 5-7 seconds.
 
 #### Activate: 
 
@@ -97,21 +98,53 @@ The following hand gestures are available:
 
 #### Right:
 
-
+<img width="160" height="160" src="images/right.jpg">
 
 #### Left:
 
-
+<img width="160" height="160" src="images/left.jpg">
 
 #### Forward:
 
-
+<img width="160" height="160" src="images/forward.jpg">
 
 #### Backward:
 
-
+<img width="160" height="160" src="images/backward.jpg">
 
 #### Stop:
 
+<img width="160" height="160" src="images/stop.jpg">
 
+#### No hand command:
 
+<img width="160" height="160" src="images/no_hand_signal.jpg">
+
+Once your hand command is detected, it will be printed in terminal.
+
+Also, it will change the state of GPIO pins on the back of Google Vision AIY kit which you can use to control your external devices. The following table shows the mapping of your hand commands above to the states of GPIO pins A, B and C of the Google Vision AIY kit.
+
+#### Mapping Hand Commands to Google Vision AIY Kit GPIO pins:
+
+| Hand Command                                  | Pin A | Pin B | Pin C |
+| --------------------------------------------- | ----- | ----- | ----- |
+| Deactivate / Activate hand gesture recognizer | HIGH  | HIGH  | LOW   | 
+| Right                                         | LOW   | HIGH  | LOW   |
+| Left                                          | LOW   | LOW   | HIGH  | 
+| Forward                                       | LOW   | HIGH  | HIGH  |
+| Backward                                      | HIGH  | LOW   | LOW   |
+| Stop                                          | HIGH  | LOW   | HIGH  |
+| No hand command                               | LOW   | LOW   | LOW   |
+
+### Step 4. Deactivating hand command recognizer
+
+To close your hand command session, make sure you deactivate the recognizer so it would stop sending commands to your devices. To deactivate the device, display one of the following 2 hand gestures for 5-7 seconds.
+
+#### Deactivate:
+<img width="160" height="160" src="images/activate-deactivate-1.jpg"> <img width="160" height="160" src="images/activate-deactivate-2.jpg">
+
+Once deactivated, the LED on the top of Google Vision AIY kit will turn off and the application will go into the face detection mode (Step 1 above.) 
+
+### Step 5. Shutting down Google Vision AIY kit
+
+You can terminate the application and safely shut down your Google Vision AIY kit at any time by pushing the button on the top of the Google Vision AIY kit.
