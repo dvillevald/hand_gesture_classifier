@@ -177,12 +177,9 @@ from the following components:
 
 ### Assembling the Display Box 
 
-<img width="320" height="320" src="images/display_box_1.JPG">
-<img width="320" height="320" src="images/display_box_2.JPG">
-<img width="320" height="320" src="images/display_box_3.JPG">
-<img width="320" height="320" src="images/display_box_4.JPG">
-<img width="320" height="320" src="images/display_box_5.JPG">
-<img width="320" height="320" src="images/display_box_6.JPG">
+<img width="320" height="320" src="images/display_box_1.JPG"><img width="320" height="320" src="images/display_box_2.JPG">
+<img width="320" height="320" src="images/display_box_3.JPG"><img width="320" height="320" src="images/display_box_4.JPG">
+<img width="320" height="320" src="images/display_box_5.JPG"><img width="320" height="320" src="images/display_box_6.JPG">
 <img width="320" height="320" src="images/display_box_assembled1.JPG">
 
 ### Connecting Display Box to Google Vision AYI kit
