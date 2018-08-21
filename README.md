@@ -157,7 +157,7 @@ You can terminate the application and safely shut down your Google Vision AIY ki
 
 You can buid a simple device which, once connected to Google Vision AIY kit via GPIO pins, will display your hand commands. I built this display box 
 
-<img rotate="90%" widthh="160" height="160" src="images/display_box_assembled.JPG">
+<img rotate="90%" width="160" height="160" src="images/display_box_assembled.JPG">
 
 from the following components:
 
@@ -173,14 +173,14 @@ from the following components:
  
 ### Schematic diagram  
 
-<img src="images/schematic2.png">
+<img width="320" height="320" src="images/schematic2.png">
 
 ### Assembling the Display Box 
 
-<img widthh="160" height="160" src="images/display_box_1.JPG"><img widthh="160" height="160" src="images/display_box_2.JPG"><img widthh="160" height="160" src="images/display_box_3.JPG"><img widthh="160" height="160" src="images/display_box_4.JPG"><img widthh="160" height="160" src="images/display_box_5.JPG">
+<img width="160" height="160" src="images/display_box_1.JPG"><img width="160" height="160" src="images/display_box_2.JPG"><img width="160" height="160" src="images/display_box_3.JPG"><img width="160" height="160" src="images/display_box_4.JPG"><img width="160" height="160" src="images/display_box_5.JPG"><img width="160" height="160" src="images/display_box_6.JPG"><img width="160" height="160" src="images/display_box_7.JPG">
 
 ### Connecting Display Box to Google Vision AYI kit
  
-<img src="images/schematic1.png">
+<img width="320" height="320" src="images/schematic1.png">
  
 
