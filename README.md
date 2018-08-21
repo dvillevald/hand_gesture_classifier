@@ -155,14 +155,23 @@ You can terminate the application and safely shut down your Google Vision AIY ki
 
 ## Hand Command Display Box (OPTIONAL)
 
-You can buid a simple device which, once connected to Google Vision AIY kit via GPIO pins, will display your hand commands. I built the following display box from the following components:
+You can buid a simple device which, once connected to Google Vision AIY kit via GPIO pins, will display your hand commands. I built this display box from the following components:
 
  - [Arduino UNO](https://www.sparkfun.com/products/11021)
  - [2.2-5V Level Logic Converter](https://www.sparkfun.com/products/12009)
  - [Jumper Wire - 0.1", 6-pin, 12"](https://www.sparkfun.com/products/10376)
  - 5 resistors 330 Ohm
  - 5 red LEDs
- - [PCB Board] (https://www.amazon.com/dp/B075VSJCD2)
+ - [PCB Board](https://www.amazon.com/dp/B075VSJCD2)
  - Wires
  - Power supply for Arduino
+ - Cardboard box (from belt or shoes)
+ 
+ ### Schematic diagram  
+
+ ### Assembling the Display Box 
+
+ ### Connecting Display Box to Google Vision AYI kit
+ 
+ 
 
