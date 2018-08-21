@@ -157,7 +157,7 @@ You can terminate the application and safely shut down your Google Vision AIY ki
 
 You can buid a simple device which, once connected to Google Vision AIY kit via GPIO pins, will display your hand commands. I built this display box 
 
-<img src="images/display_box_assembled2.JPG">
+<img width="1200" height="1600" src="images/display_box_assembled2.JPG">
 
 from the following components:
 
