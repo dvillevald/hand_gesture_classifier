@@ -53,7 +53,7 @@ This project demonstrates how, by creating a training set of only 1,500 images f
 
 ### Step 1. Face detection
 
-LED = ![#008000](https://placehold.it/15/008000/000000?text=+)
+LED on the Kit Top = ![#008000](https://placehold.it/15/008000/000000?text=+)
 
 Once you start the application, it launches *face/joy detector* pre-installed on the Google Vision AIY kit which tries to detect the human face and determine the size and location of the bounding box around it. During this step the LED on the top of the Google Vision box is **GREEN**. 
 
@@ -77,9 +77,41 @@ Once you face is reliably detected the LED on the top of Google Vision box turns
 
 ### Step 2. Activating hand gesture recognizer
 
-LED = ![#800080](https://placehold.it/15/800080/000000?text=+)
+LED on the Kit Top = ![#800080](https://placehold.it/15/800080/000000?text=+)
 
 To make sure the application does not react to the noise, any of two hand commands (Palms_in and Palms_out) are used to either activate and deactivate the application. To activate hand gesture recognizer, display one of these two commands in your chest area for 2-5 seconds.
 
-Activate: 
-| 
+#### Activate: 
+
+<img width="160" height="160" src="images/activate-deactivate-1.jpg"> <img width="160" height="160" src="images/activate-deactivate-2.jpg">
+
+Once LED of the top of Google Vision box turns **RED**, hand gesture recognizer is activated and is ready to accept your hand signals. If hand gesture recognizer fails to be activated after 30 seconds of waiting, the application goes to face detection mode again (Step 1 above.)
+
+### Step 3. Sending hand commands to your devices
+
+LED on the Kit Top = ![#FF0000](https://placehold.it/15/FF0000/000000?text=+)
+
+Once hand recognizer is activated (LED is **RED**), you can start displaying your hand commands to control your external devices. It takes 1-2 seconds to detect a hand signal, so in order to avoid sending the wrong command, try to move your hands fast from one signal to another or, better yet, put your hands down in between the signals so no hand signal is detected.
+
+The following hand gestures are available:
+
+#### Right:
+
+
+
+#### Left:
+
+
+
+#### Forward:
+
+
+
+#### Backward:
+
+
+
+#### Stop:
+
+
+
