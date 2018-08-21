@@ -191,7 +191,7 @@ Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3
 3. Power Display Box with Arduino power supply
 4. Connect Display Box with GPIO pins of Google Vision AIY kit following this schematic:  
  
-<img width="800" height="600" src="images/schematic1.png">
+<img width="600" height="450" src="images/schematic1.png">
 
 5. Launch hand gesture recognizer as described above. 
 
