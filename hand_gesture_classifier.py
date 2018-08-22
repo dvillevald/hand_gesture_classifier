@@ -468,7 +468,7 @@ def main():
                     if (long_guess == activation_index or long_guess == deactivation_index) and not is_active and num_long_guess >= (long_buffer_length - 3):
                         is_active = True
                         leds.update(Leds.rgb_on(RED))
-                        player.play(*activated)
+                        #player.play(*activated)
                         send_signal_to_pins(activation_index,args.gpio_logic)
                         long_buffer = []                      
                         num_long_guess = 0                     
@@ -478,7 +478,7 @@ def main():
                     if (long_guess == activation_index or long_guess == deactivation_index) and is_active and num_long_guess >= (long_buffer_length - 3):
                         is_active = False
                         leds.update(Leds.rgb_off())
-                        player.play(*deactivated)
+                        #player.play(*deactivated)
                         long_buffer = []
                         num_long_guess = 0                     
                         send_signal_to_pins(deactivation_index,args.gpio_logic)                      
