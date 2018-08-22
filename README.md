@@ -6,7 +6,9 @@ This project demonstrates how, by creating a training set of only 1,500 images f
 
 ## Demo
 
-
+<a href="https://youtu.be/t6PqVN4q7Sw
+" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## Installation
 
