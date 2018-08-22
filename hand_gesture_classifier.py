@@ -53,27 +53,12 @@ import aiy.toneplayer
 pin_A = LED(PIN_A)
 pin_B = LED(PIN_B)
 pin_C = LED(PIN_C)
-#gpio_logic = 'INVERSE'
 
 # Initialize the buzzer
 ready = [
         'C6q',
         'G5q',
         'E5q',
-        'C5q',
-    ]
-
-activated = [
-        'C5q',
-        'C5q',
-        'C5q',
-        'G5q',
-    ]
-
-deactivated = [
-        'G5q',
-        'G5q',
-        'G5q',
         'C5q',
     ]
 
@@ -95,21 +80,25 @@ faces_buffer_size = 40
 hand_gesture_buffer_size = 5
 threshold = 0.6
 
+# Length of long buffer (to make a decision to de/activate app) 
+# and short buffer (to declare a specific hand gesture command)   
 long_buffer_length = 10
 short_buffer_length = 3
-max_no_activity_period = 45
+
+# Number of seconds app waits for activation before going into face detection mode  
+max_no_activity_period = 30
 
 long_buffer = []
 short_buffer = []
 activation_index = 0
 deactivation_index = 1
 
-
-# Parameters used to collect training images in training_data_collector.py
+# Parameters determining size and location of hand box (based on size/location of face box)
 x_shift_coef=0.0
 y_shift_coef=1.3
 scale = 2.0
 
+# Colors used for LED at the top of Google Vision AIY kit
 RED = (0xFF, 0x00, 0x00)
 GREEN = (0x00, 0xFF, 0x00)
 BLUE = (0x00, 0x00, 0xFF)
@@ -468,7 +457,6 @@ def main():
                     if (long_guess == activation_index or long_guess == deactivation_index) and not is_active and num_long_guess >= (long_buffer_length - 3):
                         is_active = True
                         leds.update(Leds.rgb_on(RED))
-                        #player.play(*activated)
                         send_signal_to_pins(activation_index,args.gpio_logic)
                         long_buffer = []                      
                         num_long_guess = 0                     
@@ -478,7 +466,6 @@ def main():
                     if (long_guess == activation_index or long_guess == deactivation_index) and is_active and num_long_guess >= (long_buffer_length - 3):
                         is_active = False
                         leds.update(Leds.rgb_off())
-                        #player.play(*deactivated)
                         long_buffer = []
                         num_long_guess = 0                     
                         send_signal_to_pins(deactivation_index,args.gpio_logic)                      
