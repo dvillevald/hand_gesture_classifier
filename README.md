@@ -49,7 +49,7 @@ alt="Hand gesture classifier with Google Vision AIY Kit" width="480" height="360
   --output_layer final_result
  ```
 
-  **Important:** It seems that on some Google Vision AIY kits the logic of GPIO pins is inversed - pin.off() changes pin status to HIGH and pin.on() - to LOW. If you observe that your hand command classifier works but shows incorrect commands (e.g. displays *right* instead of *left*) then add the following line to the command above:
+  **Important:** It seems that on some Google Vision AIY kits the logic of GPIO pins is inverse - pin.off() changes pin status to HIGH and pin.on() - to LOW. If you observe that your hand command classifier works but shows incorrect commands (e.g. displays *right* instead of *left*) then add the following line to the command above:
 
   ```
    --gpio_logic INVERSE
