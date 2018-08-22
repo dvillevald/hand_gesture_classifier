@@ -2,7 +2,7 @@
 
 ## Objective 
 
-This project demonstrates how, by creating a training set of only 1,500 images from scratch, carefully selecting a search region and applying Transfer Learning technique, one can build and deploy on Edge AI device - Google Vision API kit – the model which reliably recognizes simple hand gestures. A fairly accurate model with a latency of 1-2 seconds runs on the Google Vision box and does not require any access to Internet or Cloud. It can be used to control your mobile robot, replace your TV remote control or for many other applications. The described approach of carefully selecting the search region, collecting a relatively small number of customized training images and re-training open-sourced Deep Learning models to create a model for a specific task (e.g. the model which controls access to the facilities by recognizing faces of the company's employees) can be applied to create numerous and diverse applications.
+This project demonstrates how, by creating a training set of only 1,500 images from scratch, carefully selecting a search region and applying Transfer Learning technique, one can build and deploy on Edge AI device - Google Vision API kit – the model which reliably recognizes simple hand gestures. A fairly accurate model with a latency of 1-2 seconds runs on the Google Vision AIY kit and does not require any access to Internet or Cloud. It can be used to control your mobile robot, replace your TV remote control or for many other applications. The described approach of carefully selecting the search region, collecting a relatively small number of customized training images and re-training open-sourced Deep Learning models to create a model for a specific task (e.g. the model which controls access to the facilities by recognizing faces of the company's employees) can be applied to create numerous and diverse applications.
 
 ## Demo
 
@@ -187,7 +187,7 @@ Arduino UNO is 5V device. However, GPIO pins of Google Vision AIY kit output 3.3
 <img width="320" height="320" src="images/display_box_5.JPG"> <img width="320" height="320" src="images/display_box_6.JPG">
 <img width="320" height="320" src="images/display_box_assembled1.JPG">
 
-### Connecting Display Box to Google Vision AYI kit
+### Connecting Display Box to Google Vision AIY kit
  
 - Assemble the Display Box following images and schematic diagram above
 - Connect Display Box to the computer via USB cord and load sketch **/arduino/hand_gesture_display_box.ino** to Arduino UNO of Display Box
