@@ -34,6 +34,7 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
  cd src/examples/vision 
  git clone https://github.com/dvillevald/hand_gesture_classifier.git
  cd hand_gesture_classifier
+ chmod +x hand_gesture_classifier.py
  ```
 
 7. Start hand gesture classifier
