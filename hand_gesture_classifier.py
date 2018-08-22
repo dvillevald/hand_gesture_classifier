@@ -11,11 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Script to run generic MobileNet based classification model.
+Script to runs MobileNet-based classification model modified so it recognize the hand gestures.
 
 index  label           function        pin_A pin_B pin_C
-0      moutzas_in      activation      1     1     0 
-1      moutzas_out     deactivation    1     1     0
+0      moutzas_in      de/activation   1     1     0 
+1      moutzas_out     de/activation   1     1     0
 2      namaste         forward         0     1     1
 3      no_hands        no action       0     0     0
 4      right           right           0     1     0
@@ -77,17 +77,8 @@ deactivated = [
         'C5q',
     ]
 
-my_theme1 = [
-        'G5q',
-        'E5s',
-        'C5q',
-        'E5q',
-        'G5q',
-        'C6',
-    ]
 player = aiy.toneplayer.TonePlayer(22)
 player.play(*ready)
-
 
 # Initialize the button (on the top of AIY Google Vision box)
 button = Button(BUTTON_GPIO_PIN)
@@ -114,7 +105,6 @@ activation_index = 0
 deactivation_index = 1
 
 
-
 # Parameters used to collect training images in training_data_collector.py
 x_shift_coef=0.0
 y_shift_coef=1.3
@@ -122,11 +112,8 @@ scale = 2.0
 
 RED = (0xFF, 0x00, 0x00)
 GREEN = (0x00, 0xFF, 0x00)
-YELLOW = (0xFF, 0xFF, 0x00)
 BLUE = (0x00, 0x00, 0xFF)
 PURPLE = (0xFF, 0x00, 0xFF)
-CYAN = (0x00, 0xFF, 0xFF)
-WHITE = (0xFF, 0xFF, 0xFF)
 
 # Blink LED
 def blink_led(color=RED,period=1,num_blinks=5):
@@ -153,8 +140,8 @@ def pinStatus(pin,status,gpio_logic):
 # Send signal to pins
 """
 index  label           function        pin_A pin_B pin_C
-0      moutzas_in      activation      1     1     0 
-1      moutzas_out     deactivation    1     1     0
+0      moutzas_in      de/activation   1     1     0 
+1      moutzas_out     de/activation   1     1     0
 2      namaste         forward         0     1     1
 3      no_hands        no action       0     0     0
 4      right           right           0     1     0
@@ -193,7 +180,6 @@ def send_signal_to_pins(signal,gpio_logic):
         pinStatus(pin_B,'LOW',gpio_logic)
         pinStatus(pin_C,'LOW',gpio_logic)
     time.sleep(0.1)
-
 
 # Buffer update and best guess estimation
 def buffer_update(new_observation,buffer, buffer_length):
@@ -261,7 +247,6 @@ def error_update(obs_history,new_observation):
     else:
         return 10e6
 
-
 # Check is face detection is stable
 def face_detection_is_stable(x_err,y_err,w_err,h_err,cutoff=0.02):
     return (x_err < cutoff and y_err < cutoff and w_err < cutoff and h_err < cutoff)
@@ -291,7 +276,7 @@ def transform(bounding_box):
     x, y, width, height = bounding_box
     return (x, y, x + width,y + height)
 
-# Determines location/size of hand box given the location/size of detected head
+# Determine location/size of hand box given the location/size of detected face box
 def hand_box(face_box, x_shift_coef=x_shift_coef, y_shift_coef=y_shift_coef, scale=scale):
     x1, y1, x2, y2 = face_box
     x_center = int(0.5 * (x2 + x1))
@@ -319,8 +304,7 @@ def select_face(faces):
     else:
         return None
 
-
-# Face detection
+# Detect (stable) face
 def detect_face():
     with CameraInference(face_detection.model()) as camera_inference:
         counter = 1
@@ -343,8 +327,7 @@ def detect_face():
                 counter += 1
         return face_box  
 
-# Check if termination trigger is activated
-# Shutdown app if the face is too large (i.e. too close) - larger than 500 x 500 
+# Shutdown Google Vision  AIY kit if termination trigger is activated (button pressed) 
 def check_termination_trigger():
     if button.is_pressed:
         print('Terinating session...')
@@ -358,7 +341,6 @@ def determine_hand_box_params(face_box):
     hand_box_params = hand_box(face_box)
     return hand_box_params
 
-
 # Capture raw images into numpy array and crop hands images
 def capture_hands_image(camera,hand_box_params):
     hands_image = []
@@ -371,7 +353,6 @@ def capture_hands_image(camera,hand_box_params):
         hands_image.append(hand_cropped)
     return hands_image
 
-
 # Classify hand gestures
 def classify_hand_gestures(img_inference,hands_images,model,labels,output_layer,threshold):
     for hand in hands_images:
@@ -380,149 +361,147 @@ def classify_hand_gestures(img_inference,hands_images,model,labels,output_layer,
         return model_output
 
 
+
 def main():
-  parser = argparse.ArgumentParser()
-  parser.add_argument(
-      '--model_path',
-      required=True,
-      help='Path to converted model file that can run on VisionKit.')
-  parser.add_argument(
-      '--label_path',
-      required=True,
-      help='Path to label file that corresponds to the model.')
-  parser.add_argument(
-      '--input_height', type=int, required=True, help='Input height.')
-  parser.add_argument(
-      '--input_width', type=int, required=True, help='Input width.')
-  parser.add_argument(
-      '--input_layer', required=True, help='Name of input layer.')
-  parser.add_argument(
-      '--output_layer', required=True, help='Name of output layer.')
-  parser.add_argument(
-      '--num_frames',
-      type=int,
-      default=-1,
-      help='Sets the number of frames to run for, otherwise runs forever.')
-  parser.add_argument(
-      '--input_mean', type=float, default=128.0, help='Input mean.')
-  parser.add_argument(
-      '--input_std', type=float, default=128.0, help='Input std.')
-  parser.add_argument(
-      '--input_depth', type=int, default=3, help='Input depth.')
-  parser.add_argument(
-      '--threshold', type=float, default=0.6,
-      help='Threshold for classification score (from output tensor).')
-  parser.add_argument(
-      '--preview',
-      action='store_true',
-      default=False,
-      help='Enables camera preview in addition to printing result to terminal.')
-  parser.add_argument(
-      '--gpio_logic',
-      #required=True,
-      default='NORMAL',
-      help='Indicates if NORMAL or INVERSE logic is used in GPIO pins.')
-  parser.add_argument(
-      '--show_fps',
-      action='store_true',
-      default=False,
-      help='Shows end to end FPS.')
-  args = parser.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--model_path',
+        required=True,
+        help='Path to converted model file that can run on VisionKit.')
+    parser.add_argument(
+        '--label_path',
+        required=True,
+        help='Path to label file that corresponds to the model.')
+    parser.add_argument(
+        '--input_height', type=int, required=True, help='Input height.')
+    parser.add_argument(
+        '--input_width', type=int, required=True, help='Input width.')
+    parser.add_argument(
+        '--input_layer', required=True, help='Name of input layer.')
+    parser.add_argument(
+        '--output_layer', required=True, help='Name of output layer.')
+    parser.add_argument(
+        '--num_frames',
+        type=int,
+        default=-1,
+        help='Sets the number of frames to run for, otherwise runs forever.')
+    parser.add_argument(
+        '--input_mean', type=float, default=128.0, help='Input mean.')
+    parser.add_argument(
+        '--input_std', type=float, default=128.0, help='Input std.')
+    parser.add_argument(
+        '--input_depth', type=int, default=3, help='Input depth.')
+    parser.add_argument(
+        '--threshold', type=float, default=0.6,
+        help='Threshold for classification score (from output tensor).')
+    parser.add_argument(
+        '--preview',
+        action='store_true',
+        default=False,
+        help='Enables camera preview in addition to printing result to terminal.')
+    parser.add_argument(
+        '--gpio_logic',
+        default='NORMAL',
+        help='Indicates if NORMAL or INVERSE logic is used in GPIO pins.')
+    parser.add_argument(
+        '--show_fps',
+        action='store_true',
+        default=False,
+        help='Shows end to end FPS.')
+    args = parser.parse_args()
 
-  #gpio_logic = args.gpio_logic  
 
-  # Model & labels
-  model = ModelDescriptor(
-      name='mobilenet_based_classifier',
-      input_shape=(1, args.input_height, args.input_width, args.input_depth),
-      input_normalizer=(args.input_mean, args.input_std),
-      compute_graph=utils.load_compute_graph(args.model_path))
-  labels = read_labels(args.label_path)
+    # Model & labels
+    model = ModelDescriptor(
+        name='mobilenet_based_classifier',
+        input_shape=(1, args.input_height, args.input_width, args.input_depth),
+        input_normalizer=(args.input_mean, args.input_std),
+        compute_graph=utils.load_compute_graph(args.model_path))
+    labels = read_labels(args.label_path)
 
-  with PiCamera() as camera:
-      # Forced sensor mode, 1640x1232, full FoV. See:
-      # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes
-      # This is the resolution inference run on.
-      camera.sensor_mode = 4
+    with PiCamera() as camera:
+        # Forced sensor mode, 1640x1232, full FoV. See:
+        # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes
+        # This is the resolution inference run on.
+        camera.sensor_mode = 4
 
-      # Scaled and cropped resolution. If different from sensor mode implied
-      # resolution, inference results must be adjusted accordingly. This is
-      # true in particular when camera.start_recording is used to record an
-      # encoded h264 video stream as the Pi encoder can't encode all native
-      # sensor resolutions, or a standard one like 1080p may be desired.
-      camera.resolution = (1640, 1232)
+        # Scaled and cropped resolution. If different from sensor mode implied
+        # resolution, inference results must be adjusted accordingly. This is
+        # true in particular when camera.start_recording is used to record an
+        # encoded h264 video stream as the Pi encoder can't encode all native
+        # sensor resolutions, or a standard one like 1080p may be desired.
+        camera.resolution = (1640, 1232)
 
-      # Start the camera stream.
-      camera.framerate = 30
-      camera.start_preview()
+        # Start the camera stream.
+        camera.framerate = 30
+        camera.start_preview()
 
-      while True:
-          while True:
-              long_buffer = []
-              short_buffer = []
-              pinStatus(pin_A,'LOW',args.gpio_logic)
-              pinStatus(pin_B,'LOW',args.gpio_logic)
-              pinStatus(pin_C,'LOW',args.gpio_logic)
-              leds.update(Leds.rgb_on(GREEN))
-              face_box = detect_face()
-              hand_box_params = determine_hand_box_params(face_box)
-              if image_boundary_check(hand_box_params):
-                  break
+        while True:
+            while True:
+                long_buffer = []
+                short_buffer = []
+                pinStatus(pin_A,'LOW',args.gpio_logic)
+                pinStatus(pin_B,'LOW',args.gpio_logic)
+                pinStatus(pin_C,'LOW',args.gpio_logic)
+                leds.update(Leds.rgb_on(GREEN))
+                face_box = detect_face()
+                hand_box_params = determine_hand_box_params(face_box)
+                if image_boundary_check(hand_box_params):
+                    break
 
-          # Start hand classifier
-          is_active = False
-          leds.update(Leds.rgb_on(PURPLE))
-          start_timer = time.time()
-          with ImageInference(model) as img_inference:
-              while True:
-                  check_termination_trigger()
-                  if is_active:
-                      leds.update(Leds.rgb_on(RED))
-                  hands_image = capture_hands_image(camera,hand_box_params)
-                  output = classify_hand_gestures(img_inference,hands_image,model=model,labels=labels,output_layer=args.output_layer,threshold = args.threshold)
+            # Start hand classifier
+            is_active = False
+            leds.update(Leds.rgb_on(PURPLE))
+            start_timer = time.time()
+            with ImageInference(model) as img_inference:
+                while True:
+                    check_termination_trigger()
+                    if is_active:
+                        leds.update(Leds.rgb_on(RED))
+                    hands_image = capture_hands_image(camera,hand_box_params)
+                    output = classify_hand_gestures(img_inference,hands_image,model=model,labels=labels,output_layer=args.output_layer,threshold = args.threshold)
 
-                  short_guess, num_short_guess = buffer_update(output,short_buffer,short_buffer_length)
-                  long_guess, num_long_guess = buffer_update(output,long_buffer,long_buffer_length)
+                    short_guess, num_short_guess = buffer_update(output,short_buffer,short_buffer_length)
+                    long_guess, num_long_guess = buffer_update(output,long_buffer,long_buffer_length)
 
-                  # Activation of classifier                  
-                  if (long_guess == activation_index or long_guess == deactivation_index) and not is_active and num_long_guess >= (long_buffer_length - 3):
-                      is_active = True
-                      leds.update(Leds.rgb_on(RED))
-                      player.play(*activated)
-                      send_signal_to_pins(activation_index,args.gpio_logic)
-                      long_buffer = []                      
-                      num_long_guess = 0                     
-                      time.sleep(1)
+                    # Activation of classifier                  
+                    if (long_guess == activation_index or long_guess == deactivation_index) and not is_active and num_long_guess >= (long_buffer_length - 3):
+                        is_active = True
+                        leds.update(Leds.rgb_on(RED))
+                        player.play(*activated)
+                        send_signal_to_pins(activation_index,args.gpio_logic)
+                        long_buffer = []                      
+                        num_long_guess = 0                     
+                        time.sleep(1)
 
-                  # Deactivation of classifier (go back to stable face detection)                  
-                  if (long_guess == activation_index or long_guess == deactivation_index) and is_active and num_long_guess >= (long_buffer_length - 3):
-                      is_active = False
-                      leds.update(Leds.rgb_off())
-                      player.play(*deactivated)
-                      long_buffer = []
-                      num_long_guess = 0                     
-                      send_signal_to_pins(deactivation_index,args.gpio_logic)                      
-                      time.sleep(1)
-                      break
+                    # Deactivation of classifier (go back to stable face detection)                  
+                    if (long_guess == activation_index or long_guess == deactivation_index) and is_active and num_long_guess >= (long_buffer_length - 3):
+                        is_active = False
+                        leds.update(Leds.rgb_off())
+                        player.play(*deactivated)
+                        long_buffer = []
+                        num_long_guess = 0                     
+                        send_signal_to_pins(deactivation_index,args.gpio_logic)                      
+                        time.sleep(1)
+                        break
 
-                  # If not activated within max_no_activity_period seconds, go back to stable face detection
-                  if not is_active:
-                      timer = time.time()-start_timer
-                      if timer >= max_no_activity_period:
-                          leds.update(Leds.rgb_off())
-                          send_signal_to_pins(deactivation_index,args.gpio_logic)                      
-                          time.sleep(1)
-                          break
-                  else:
-                      start_timer = time.time()  
+                    # If not activated within max_no_activity_period seconds, go back to stable face detection
+                    if not is_active:
+                        timer = time.time()-start_timer
+                        if timer >= max_no_activity_period:
+                            leds.update(Leds.rgb_off())
+                            send_signal_to_pins(deactivation_index,args.gpio_logic)                      
+                            time.sleep(1)
+                            break
+                    else:
+                        start_timer = time.time()  
 
-                      # Displaying classified hand gesture commands
-                      if num_short_guess >= (short_buffer_length-1) and is_active:
-                          print_hand_command(short_guess)
-                          send_signal_to_pins(short_guess,args.gpio_logic)
-
-                 
-      camera.stop_preview()
+                        # Displaying classified hand gesture commands
+                        if num_short_guess >= (short_buffer_length-1) and is_active:
+                            print_hand_command(short_guess)
+                            send_signal_to_pins(short_guess,args.gpio_logic)
+ 
+        camera.stop_preview()
 
 if __name__ == '__main__':
-  main()
+    main()
