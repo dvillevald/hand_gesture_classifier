@@ -35,21 +35,21 @@ Stage #2: Processing raw images and storing training images
   If this folder does not exist, it will be created. The folder with raw images (/Raw) will be deleted at the end of this stage. 
   The processing and storing of training images will start when the led (in the button on the top of AIY Google Vision box) turns BLUE.
 
-Suggestions:
-(1) Select a reasonable number of images (100-200) to capture within the session 
-    so you don't get tired. I used num_images=200 which took about 2-3 minutes to collect.
-(2) Make sure that the hand gesture you are showing match teh label you specified in --label
-(3) Vary position of your body and hands slightly during the session (moving closer or further away 
-    from the camera, slightly moving around and rotaiting your body and hands, etc.) to make your training dataset more diverse.
-(4) Record training images for all labels in each environment (similar illumination and background, 
-    same T-shirt, etc.) to make sure your classifier would not be making decision based on, for example, 
-    the color of your T-shirt instead of hand gesture 
-(5) Record the images for all labes in 2-5 different environments. For example, you may record 200 images for each label 
-    wearing a red T-short in a bright room (environment 1), then record another 200 images for each label wearing a blue 
-    sweater in another room (environment 2), etc.
-(6) Capture images in the room bright enough so you hands are visible; fro the same reason use T-shorts/sweaters 
-    with plain and darker colors   
-(7) Review the training images you collected and remove the bad ones if you see any
+Practical suggestions during the collection of training data:
+(1) Make sure that both your head box and your chest box fit in the image. Otherwise the training image will not be saved. 
+(2) Select a reasonable number of images (100-200) to capture within the session so you don't get tired. 
+    I recorded 200 images which took about 2-3 minutes to collect.
+(3) Make sure that the hand gesture you are recording match the label you specified in –label argument.
+(4) Vary position of your body and hands slightly during a session (moving closer or further away from the camera, 
+    slightly rotating your body and hands, etc.) to make your training data set more diverse.
+(5) Record the images in 2-5 different environments. For example, you may record 200 images for each label wearing a red T-short 
+    in a bright room (environment #1), then record another 200 images for each label wearing a blue sweater 
+    in a darker (environment #2), etc.
+(6) Make sure that in each environment you record the training images for all labels so there is no correlation 
+    between the particular environment and specific hand command. 
+(7) Capture images in the room bright enough so you hands are visible. For the same reason 
+    use T-shorts/sweaters with plain and darker colors.
+(8) Review the images you collected and remove the bad ones if you see any.
 
 Parameters:
 --label: a string specifying the name of the class (label) of the collected images
